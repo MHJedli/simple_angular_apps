@@ -1,0 +1,40 @@
+<app-home></app-home>
+<h3 class="mt-5 mb-3">Reservation List</h3>
+<hr>
+<table class="table table-striped"> 
+    <thead>
+        <tr>
+            <th>Guest</th>
+            <th>Email</th>
+            <th>Room No.</th>
+            <th>Check-In</th>
+            <th>Check-Out</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let reservation of reservations;">
+            <td>{{reservation.guestName}}</td>
+            <td>{{reservation.guestEmail}}</td>
+            <td>{{reservation.roomNumber}}</td>
+            <td>{{reservation.checkInDate}}</td>
+            <td>{{reservation.checkOutDate}}</td>
+            <td>
+                <button class="btn btn-danger mx-1" (click)="deleteReservation(reservation.id)">Delete</button>
+                <!-- Route us to the editing page with id send with it -->
+                <button class="btn btn-secondary mx-1" [routerLink]="['/edit', reservation.id]">Update</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- the if condition is used to check the length of reservations -->
+ <!-- if length = 0, then render the ng-template with #noReservation reference  -->
+<ul *ngIf="reservations.length; else noReservation">
+
+</ul>
+
+<!-- Used ng-template with reference to render this block conditionally -->
+<ng-template #noReservation>
+    <p>No Reservation Available</p>
+</ng-template>
